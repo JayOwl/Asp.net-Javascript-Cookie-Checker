@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
+    <div>
+        <h1>
+            @{
+                @Html.Raw("Welcome")
+                if (ViewBag.UserName != null)
+                {
+                    @Html.Raw(" " + ViewBag.UserName)
+                }
+                if (ViewBag.UserColor != null)
+                {
+                    @Html.Raw(" " + ViewBag.UserColor)
+                }
+                @Html.Raw("!")
+            }
+        </h1>
+        @using (Html.BeginForm("SetCookie",       // Action
+                               "Home",            // Controller
+                               FormMethod.Post))  // Method type
+        {
+            @Html.Raw("Name: ")
+            <input type="text" name="txtName" />
+            <input type="submit" value="Submit" />
+
+            @Html.Raw("Color: ")
+            <head>
+                <script type="text/javascript">
+                    document.body.style.backgroundColor = "#@ViewBag.UserColor";
+                </script>
+            </head>
+            <body>
+                <form>
+                    Change the background color:
+                    <select name="bgColor" size="1">
+                        <option value="000000">[Black]</option>
+                        <option value="FF0400">[Red]</option>
+                        <option value="EFE800">[Yellow]</option>
+                        <option value="05EF00">[Green]</option>
+                        <option value="0206FF">[Blue]</option>
+                        <option value="FFFFFF">[White]</option>
+                    </select>
+                </form>
+            </body>
+        }
+        @Html.ActionLink("Clear",                 // Text
+                         "ClearCookie",           // Method
+                         "Home")
+    </div>
+
+ </body>
+</html>
